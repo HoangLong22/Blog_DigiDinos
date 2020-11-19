@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Search Blogs</h2>
+</div>
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" id="myForm" name="myForms" onsubmit="return validateform()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label id="font">Tiêu đề</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input type="text" name="id" class="form-control" id="myInputId" placeholder="Tiêu đề" />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-fluids">
+    <div class="container-fluid">
+        <h3>List Blogs</h3>
+    </div>
+    <div class="card-body" style="padding-bottom: 50px;">
+        <table id="example" class="table table-bordered table-hover" style="width: 100%">
+            <thead>
+                <tr class="project-actions text-center">
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Loại</th>
+                    <th>Trạng thái</th>
+                    <th style="width: 110px;">Vị trí</th>
+                    <th>Ngày pubblic</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="myTable" style="text-align: center;">
+            </tbody>
+        </table>
+    </div>
+</div>
+
