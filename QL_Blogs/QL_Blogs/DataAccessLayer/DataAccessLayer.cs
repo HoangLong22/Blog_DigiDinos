@@ -1,15 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace QL_Blogs
+namespace QL_Blogs.DataAccessLayer
 {
-    public class Blog
+    public class DataAccessLayer
     {
-
         private void GetUserDetails()
         {
             var json = File.ReadAllText(@"F:\DigiDinos\Blog_DigiDinos\json_server_blog\db.json");
@@ -31,7 +29,7 @@ namespace QL_Blogs
                     JArray experiencesArrary = (JArray)jObject["experiences"];
 
                 }
-                
+
             }
             catch (Exception)
             {
@@ -39,6 +37,5 @@ namespace QL_Blogs
                 throw;
             }
         }
-
     }
 }
