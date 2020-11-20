@@ -1,4 +1,4 @@
-﻿
+﻿@model QL_Blogs.Models.Blog
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -34,17 +34,72 @@
         <table id="example" class="table table-bordered table-hover" style="width: 100%">
             <thead>
                 <tr class="project-actions text-center">
-                    <th>ID</th>
-                    <th>Tên</th>
-                    <th>Loại</th>
-                    <th>Trạng thái</th>
-                    <th style="width: 110px;">Vị trí</th>
-                    <th>Ngày pubblic</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descriptions)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Position)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataPublic)
+
+                    </th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody id="myTable" style="text-align: center;">
+                @foreach (var item in Model.ShowallBlog)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descriptions)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataPublic)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID },
+                            new { onclick = "return confirm('Are sure wants to delete?');" })
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
