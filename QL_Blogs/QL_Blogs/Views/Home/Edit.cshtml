@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var list = ViewBag.objCategory;
     var listPosi = ViewBag.objPositionCate;
+    var position = ViewBag.objPosition;
+    var ShowBlog = ViewBag.objBlog;
 }
 
 <div class="container-fluid">
@@ -17,15 +19,16 @@
             <div class="col-md-12">
                 @*<form method="post" id="myForm" name="myForms" onsubmit="return validateform()">*@
                 <div class="col-md-8">
+                    @Html.Hidden("ID")
                     <div class="form-group">
                         @Html.LabelFor(model => model.Title)
-                        <input class="form-control" name="Title" id="Title" />
-                        @Html.ValidationMessage("Title", "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Title,  new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.Title)
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Descriptions)
-                        <input class="form-control" name="Descriptions" id="Descriptions" />
-                        @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Descriptions, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Descriptions)
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Detail)
@@ -34,48 +37,91 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Thumbs)
-                        @Html.TextBox("Thumbs", null, new { @type = "file" })
+                        @Html.TextBox("Thumbs", null, new { @type = "file"})
+                        @if(Model.Thumbs != "") { 
+                           <input class="form-control" value="@Model.Thumbs" />
+                        }
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Category)
                         <select id="inputState" class="form-control" style="width: 110px;" name="Category">
                             @foreach (var item in list)
-                            {
-                                <option name="Category" value="@item.ID">@item.Name</option>
+                            {                               
+                                    if (Model.ID == item.ID)
+                                    {
+                                        <option name="Category" value="@item.ID" selected>@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option name="Category" value="@item.ID">@item.Name</option>
+                                    }
                             }
                         </select>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Position)
-                        <div>
-                            @foreach (var item in listPosi)
-                            {
-                                <input type="checkbox" id="" name="Position" value="@item.ID">
-                                <label for="vehicle1">@item.Name</label><br>
-                            }
-                        </div>
+                        <label>Vị trí</label>
+                        @foreach (var item in listPosi)
+                        {
+                            bool flag = false;
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @foreach (var pos in position)
+                                    {
+                                        if (item.ID == pos.BlogID)
+                                        {
+                                            <input type="checkbox" id="" name="Position" value="@item.ID" checked>@item.Name
+                                            flag = true;
+                                        }
+                                    }
+                                    @if (!flag)
+                                    {
+                                        <input type="checkbox" value="@item.ID" name="Position">@item.Name
+                                    }
+                                </label>
+                            </div>
+                        }
+                        @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Status)
-                        <div class="form-check">
-                            <input type="radio" name="Status" id="exampleRadios1" value="true">
-                            <label class="form-check-label">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" name="Status" id="exampleRadios2" value="false">
-                            <label class="form-check-label" for="exampleRadios2">
-                                No
-                            </label>
-                        </div>
+                        @if (Model.Status)
+                        {
+                            <div class="form-check">
+                                <input type="radio" name="Status" id="exampleRadios1" value="true" checked>
+                                <label class="form-check-label">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="Status" id="exampleRadios2" value="false">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    No
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                    <div class="form-check">
+                        <input type="radio" name="Status" id="exampleRadios1" value="true" checked>
+                        <label class="form-check-label">
+                            Yes
+                        </label>
                     </div>
+                            <div class="form-check">
+                                <input type="radio" name="Status" id="exampleRadios2" value="false" checked>
+                                <label class="form-check-label" for="exampleRadios2">
+                                    No
+                                </label>
+                            </div>
+                        }
+                    </div>
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.DataPublic)
-                        <input type="date" class="form-control" name="DataPublic" id="fileSelect" style="width: 150px;">
+                        <input class="form-control form-control-sm w-50" name="DatePublic" type="date" value="@Model.DataPublic.ToString("yyyy-MM-dd")" />
                     </div>
                     <div class="button">
-                        <button class="btn btn-success">Update</button>
+                        <button class="btn btn-success" type="submit">Update</button>
                         <button class="btn btn-primary">Clear</button>
                     </div>
                 </div>

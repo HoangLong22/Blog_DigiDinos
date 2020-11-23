@@ -20,7 +20,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Title)
-                            @Html.TextBox("Title",null, new { @class = "form-control"})
+                           <input class="form-control" name="Title" id="Title" />
                             @Html.ValidationMessage("Title", "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">

@@ -63,42 +63,39 @@ namespace QL_Blogs.Controllers
             return View(objBlog);
         }       
                 
-        public  ActionResult Search()
-        {
-            Blog objBlog = new Blog();
-            DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata  
-            objBlog.ShowallBlog = objDB.Selectalldata();
-            return View(objBlog);
-        }
-
         [HttpGet]
         public ActionResult Edit(string ID)
         {
-            Blog objCustomer = new Blog();
+            Blog objBlog = new Blog();
             DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata  
             ViewBag.objCategory = objDB.SelectCategory();
             ViewBag.objPositionCate = objDB.SelectPositionCate();
+            ViewBag.objPosition = objDB.SelectPosition();
+            ViewBag.objBlog = objDB.Selectalldata();
             return View(objDB.SelectDatabyID(ID));
         }
 
         [HttpPost]
         public ActionResult Edit(Blog objBlog)
         {
-            objBlog.DataPublic = Convert.ToDateTime(objBlog.DataPublic);
-            if (ModelState.IsValid) //checking model is valid or not  
+            DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata 
+            if (ModelState.IsValid)
             {
-                DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata  
-                string result = objDB.UpdateData(objBlog);
-                //ViewData["result"] = result;  
-                TempData["result2"] = result;
-                ModelState.Clear(); //clearing model  
-                //return View();  
+               
+                objDB.UpdateData(objBlog);
+                foreach (var position in objBlog.Position)
+                {
+                    objDB.InsertPosition(objBlog.ID, position);
+                }
                 return RedirectToAction("Index");
             }
             else
             {
                 ModelState.AddModelError("", "Error in saving data");
-                return View();
+                ViewBag.objCategory = objDB.SelectCategory();
+                ViewBag.objPositionCate = objDB.SelectPositionCate();
+                ViewBag.objPosition = objDB.SelectPosition();
+                return View(objBlog);
             }
         }
 
@@ -106,11 +103,27 @@ namespace QL_Blogs.Controllers
         public ActionResult Delete(String ID)
         {
             DataAccessLayer objDB = new DataAccessLayer();
-            int result = objDB.DeleteData(ID);
-            TempData["result3"] = result;
-            ModelState.Clear(); //clearing model  
-                                //return View();  
+            objDB.DeleteData(ID);
+
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Search(string searchString)
+        {
+            DataAccessLayer objDB = new DataAccessLayer();
+            List<Blog> data = new List<Blog>();
+            if (string.IsNullOrEmpty(searchString))
+            {
+                data = objDB.Selectalldata();
+            }
+            else
+            {
+                data = objDB.Search(searchString);
+            }
+
+            ViewBag.searchString = searchString;
+            return View(data);
         }
     }
 }

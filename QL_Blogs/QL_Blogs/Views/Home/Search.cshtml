@@ -1,9 +1,8 @@
-﻿@model QL_Blogs.Models.Blog
+﻿@model  List<QL_Blogs.Models.Blog>
 @{
     ViewBag.Title = "Search";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+}
 <div class="container-fluid">
     <h2>Search Blogs</h2>
 </div>
@@ -17,11 +16,11 @@
                             <label id="font">Tiêu đề</label>
                         </div>
                         <div class="col-md-11">
-                            <input type="text" name="id" class="form-control" id="myInputId" placeholder="Tiêu đề" />
+                            <input type="text" name="searchString" class="form-control" value="@ViewBag.searchString" placeholder="Tiêu đề" />
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success">Search</button>
+                <button class="btn btn-success" >Search</button>
             </form>
         </div>
     </div>
@@ -35,39 +34,29 @@
             <thead>
                 <tr class="project-actions text-center">
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-
+                      ID
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Title)
-
+                        Tiêu đề
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descriptions)
-
+                       Loại
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Category)
-
+                       Trạng thái
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Status)
-
+                       Vị trí
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Position)
-
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DataPublic)
-
+                        Ngày Public
                     </th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody id="myTable" style="text-align: center;">
-                @foreach (var item in Model.ShowallBlog)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -104,4 +93,6 @@
         </table>
     </div>
 </div>
+
+
 
