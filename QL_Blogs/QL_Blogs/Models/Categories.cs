@@ -12,6 +12,7 @@ namespace QL_Blogs.Models
         public int ID { get; set; }
 
         public string Name { set; get; }
+
         public List<Categories> ShowallCategory { get; set; }
     }
 }

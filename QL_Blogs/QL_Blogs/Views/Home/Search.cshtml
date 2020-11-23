@@ -1,7 +1,6 @@
 ﻿@model  List<QL_Blogs.Models.Blog>
 @{
     ViewBag.Title = "Search";
-
 }
 <div class="container-fluid">
     <h2>Search Blogs</h2>
@@ -34,19 +33,19 @@
             <thead>
                 <tr class="project-actions text-center">
                     <th>
-                      ID
+                        ID
                     </th>
                     <th>
                         Tiêu đề
                     </th>
                     <th>
-                       Loại
+                        Loại
                     </th>
                     <th>
-                       Trạng thái
+                        Vị trí
                     </th>
                     <th>
-                       Vị trí
+                        Trạng thái
                     </th>
                     <th>
                         Ngày Public
@@ -64,9 +63,6 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descriptions)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Category)

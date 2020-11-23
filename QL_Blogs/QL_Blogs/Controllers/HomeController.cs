@@ -17,7 +17,6 @@ namespace QL_Blogs.Controllers
             DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata  
             objBlog.ShowallBlog = objDB.Selectalldata();
             return View(objBlog);
-
         }
 
         [HttpGet]
@@ -46,6 +45,7 @@ namespace QL_Blogs.Controllers
             ViewBag.objPositionCate = objDB.SelectPositionCate();
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(BlogPosition objBlog)
         {
@@ -59,7 +59,6 @@ namespace QL_Blogs.Controllers
                 } 
                 return RedirectToAction("Index");
             }
-
             return View(objBlog);
         }       
                 
@@ -81,7 +80,6 @@ namespace QL_Blogs.Controllers
             DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata 
             if (ModelState.IsValid)
             {
-               
                 objDB.UpdateData(objBlog);
                 foreach (var position in objBlog.Position)
                 {
@@ -121,7 +119,6 @@ namespace QL_Blogs.Controllers
             {
                 data = objDB.Search(searchString);
             }
-
             ViewBag.searchString = searchString;
             return View(data);
         }

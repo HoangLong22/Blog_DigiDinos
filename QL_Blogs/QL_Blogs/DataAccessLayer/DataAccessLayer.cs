@@ -13,7 +13,6 @@ namespace QL_Blogs.DataAccess
         public int InsertData(BlogPosition objcust)
         {
             SqlConnection con = null;
-
             int result;
             try
             {
@@ -193,7 +192,6 @@ namespace QL_Blogs.DataAccess
                     cobj.Detail = ds.Tables[0].Rows[i]["Detail"].ToString();
                     cobj.Category = ds.Tables[0].Rows[i]["Category"].ToString();
                     cobj.Status = Convert.ToBoolean(ds.Tables[0].Rows[i]["Status"].ToString());
-                    //cobj.Position = ds.Tables[0].Rows[i]["Positon"].ToString();
                     var Date = ds.Tables[0].Rows[i]["DataPublic"].ToString();
                     cobj.Thumbs = ds.Tables[0].Rows[i]["Thumbs"].ToString();
 
@@ -328,7 +326,6 @@ namespace QL_Blogs.DataAccess
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@searchString", searchString);
                 con.Open();
-
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmd;
                 dataSet = new DataSet();
