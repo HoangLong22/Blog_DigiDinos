@@ -132,16 +132,17 @@ namespace QL_Blogs.DataAccess
                 ds = new DataSet();
                 da.Fill(ds);
                 custlist = new List<Blog>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                var table = ds.Tables[0];
+                for (int i = 0; i < table.Rows.Count; i++)
                 {
                     Blog cobj = new Blog();
-                    cobj.ID = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"].ToString());
-                    cobj.Title = ds.Tables[0].Rows[i]["Title"].ToString();
-                    cobj.Descriptions = ds.Tables[0].Rows[i]["Descriptions"].ToString();
-                    cobj.Category = ds.Tables[0].Rows[i]["Category"].ToString();
-                    cobj.Status = Convert.ToBoolean(ds.Tables[0].Rows[i]["Status"].ToString());
-                    cobj.Position = ds.Tables[0].Rows[i]["Positon"].ToString();
-                    var Date = ds.Tables[0].Rows[i]["DataPublic"].ToString();
+                    cobj.ID = Convert.ToInt32(table.Rows[i]["ID"].ToString());
+                    cobj.Title = table.Rows[i]["Title"].ToString();
+                    cobj.Descriptions = table.Rows[i]["Descriptions"].ToString();
+                    cobj.Category = table.Rows[i]["Category"].ToString();
+                    cobj.Status = Convert.ToBoolean(table.Rows[i]["Status"].ToString());
+                    cobj.Position = table.Rows[i]["Positon"].ToString();
+                    var Date = table.Rows[i]["DataPublic"].ToString();
                         if(Date != null)
                     {
                         cobj.DataPublic = Convert.ToDateTime(Date);
@@ -160,7 +161,7 @@ namespace QL_Blogs.DataAccess
             }
         }
 
-        public Blog SelectDatabyID(string ID)   
+        public Blog SelectDatabyID(int ID)   
         {
             SqlConnection con = null;
             DataSet ds = null;
@@ -183,17 +184,18 @@ namespace QL_Blogs.DataAccess
                 da.SelectCommand = cmd;
                 ds = new DataSet();
                 da.Fill(ds);
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                var table = ds.Tables[0];
+                for (int i = 0; i <table.Rows.Count; i++)
                 {
                     cobj = new Blog();
-                    cobj.ID = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"].ToString());
-                    cobj.Title = ds.Tables[0].Rows[i]["Title"].ToString();
-                    cobj.Descriptions = ds.Tables[0].Rows[i]["Descriptions"].ToString();
-                    cobj.Detail = ds.Tables[0].Rows[i]["Detail"].ToString();
-                    cobj.Category = ds.Tables[0].Rows[i]["Category"].ToString();
-                    cobj.Status = Convert.ToBoolean(ds.Tables[0].Rows[i]["Status"].ToString());
-                    var Date = ds.Tables[0].Rows[i]["DataPublic"].ToString();
-                    cobj.Thumbs = ds.Tables[0].Rows[i]["Thumbs"].ToString();
+                    cobj.ID = Convert.ToInt32(table.Rows[i]["ID"].ToString());
+                    cobj.Title = table.Rows[i]["Title"].ToString();
+                    cobj.Descriptions = table.Rows[i]["Descriptions"].ToString();
+                    cobj.Detail = table.Rows[i]["Detail"].ToString();
+                    cobj.Category = table.Rows[i]["Category"].ToString();
+                    cobj.Status = Convert.ToBoolean(table.Rows[i]["Status"].ToString());
+                    var Date = table.Rows[i]["DataPublic"].ToString();
+                    cobj.Thumbs = table.Rows[i]["Thumbs"].ToString();
 
                 }
                 return cobj;
@@ -224,11 +226,12 @@ namespace QL_Blogs.DataAccess
                 ds = new DataSet();
                 da.Fill(ds);
                 custlist = new List<Categories>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                var table = ds.Tables[0];
+                for (int i = 0; i < table.Rows.Count; i++)
                 {
                     Categories cobj = new Categories();
-                    cobj.ID = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"].ToString());
-                    cobj.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+                    cobj.ID = Convert.ToInt32(table.Rows[i]["ID"].ToString());
+                    cobj.Name =table.Rows[i]["Name"].ToString();
                     custlist.Add(cobj);
                 }
                 return custlist;
@@ -259,11 +262,12 @@ namespace QL_Blogs.DataAccess
                 ds = new DataSet();
                 da.Fill(ds);
                 custlist = new List<PositionCate>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                var table = ds.Tables[0];
+                for (int i = 0; i < table.Rows.Count; i++)
                 {
                     PositionCate cobj = new PositionCate();
-                    cobj.ID = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"].ToString());
-                    cobj.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+                    cobj.ID = Convert.ToInt32(table.Rows[i]["ID"].ToString());
+                    cobj.Name = table.Rows[i]["Name"].ToString();
                     custlist.Add(cobj);
                 }
                 return custlist;
@@ -278,7 +282,7 @@ namespace QL_Blogs.DataAccess
             }
         }
 
-        public List<Position> SelectPosition()
+        public List<Position> SelectPosition(int ID)
         {
             SqlConnection con = null;
             DataSet ds = null;
@@ -288,18 +292,20 @@ namespace QL_Blogs.DataAccess
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
                 SqlCommand cmd = new SqlCommand("SelectPosition", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", ID);
                 con.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.SelectCommand = cmd;
                 ds = new DataSet();
                 da.Fill(ds);
                 custlist = new List<Position>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                var table = ds.Tables[0];
+                for (int i = 0; i < table.Rows.Count; i++)
                 {
                     Position cobj = new Position();
-                    cobj.ID = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"].ToString());
-                    cobj.PosCateID = Convert.ToInt32(ds.Tables[0].Rows[i]["PosCateID"].ToString());
-                    cobj.BlogID = Convert.ToInt32(ds.Tables[0].Rows[i]["BlogID"].ToString());
+                    cobj.ID = Convert.ToInt32(table.Rows[i]["ID"].ToString());
+                    cobj.PosCateID = Convert.ToInt32(table.Rows[i]["PosCateID"].ToString());
+                    cobj.BlogID = Convert.ToInt32(table.Rows[i]["BlogID"].ToString());
                     custlist.Add(cobj);
                 }
                 return custlist;
@@ -314,24 +320,24 @@ namespace QL_Blogs.DataAccess
             }
         }
 
-        public List<Blog> Search(string searchString)
+        public List<Blog> Search(string Title)
         {
             SqlConnection con = null;
-            DataSet dataSet = null;
+            DataSet ds = null;
             List<Blog> custlist = null;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
-                SqlCommand cmd = new SqlCommand("SelectBlog", con);
+                SqlCommand cmd = new SqlCommand("SearchBlog", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@searchString", searchString);
+                cmd.Parameters.AddWithValue("@Title", Title);
                 con.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                dataSet = new DataSet();
-                adapter.Fill(dataSet);
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataSet();
+                da.Fill(ds);
                 custlist = new List<Blog>();
-                var table = dataSet.Tables[0];
+                var table = ds.Tables[0];
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     Blog cobj = new Blog();
@@ -346,7 +352,7 @@ namespace QL_Blogs.DataAccess
                         cobj.DataPublic = Convert.ToDateTime(date);
                     }
                     cobj.Status = Convert.ToBoolean(table.Rows[i]["Status"].ToString());
-                    cobj.Position = table.Rows[i]["Position"].ToString();
+                    cobj.Position = table.Rows[i]["Positon"].ToString();
                     cobj.Thumbs = table.Rows[i]["Thumbs"].ToString();
 
                     custlist.Add(cobj);

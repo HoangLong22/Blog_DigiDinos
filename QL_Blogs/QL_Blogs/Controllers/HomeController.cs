@@ -63,13 +63,13 @@ namespace QL_Blogs.Controllers
         }       
                 
         [HttpGet]
-        public ActionResult Edit(string ID)
+        public ActionResult Edit(int ID)
         {
             Blog objBlog = new Blog();
             DataAccessLayer objDB = new DataAccessLayer(); //calling class DBdata  
             ViewBag.objCategory = objDB.SelectCategory();
             ViewBag.objPositionCate = objDB.SelectPositionCate();
-            ViewBag.objPosition = objDB.SelectPosition();
+            ViewBag.objPosition = objDB.SelectPosition(ID);
             ViewBag.objBlog = objDB.Selectalldata();
             return View(objDB.SelectDatabyID(ID));
         }
@@ -92,7 +92,7 @@ namespace QL_Blogs.Controllers
                 ModelState.AddModelError("", "Error in saving data");
                 ViewBag.objCategory = objDB.SelectCategory();
                 ViewBag.objPositionCate = objDB.SelectPositionCate();
-                ViewBag.objPosition = objDB.SelectPosition();
+                ViewBag.objPosition = objDB.SelectPosition(objBlog.ID);
                 return View(objBlog);
             }
         }
@@ -107,19 +107,18 @@ namespace QL_Blogs.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search(string searchString)
+        public ActionResult Search(string Title)
         {
             DataAccessLayer objDB = new DataAccessLayer();
             List<Blog> data = new List<Blog>();
-            if (string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(Title))
             {
                 data = objDB.Selectalldata();
             }
             else
             {
-                data = objDB.Search(searchString);
+                data = objDB.Search(Title);
             }
-            ViewBag.searchString = searchString;
             return View(data);
         }
     }

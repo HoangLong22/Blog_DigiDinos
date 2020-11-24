@@ -8,20 +8,21 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-12">
-            <form method="post" id="myForm" name="myForms" onsubmit="return validateform()">
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+            {
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-1">
                             <label id="font">Tiêu đề</label>
                         </div>
                         <div class="col-md-11">
-                            <input type="text" name="searchString" class="form-control" value="@ViewBag.searchString" placeholder="Tiêu đề" />
+                            <input type="text" name="Title" class="form-control" @*value="@ViewBag.Title"*@ placeholder="Tiêu đề" />
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success" >Search</button>
-            </form>
-        </div>
+                <button class="btn btn-success">Search</button>
+               }
+            </div>
     </div>
 </div>
 <div class="container-fluids">
